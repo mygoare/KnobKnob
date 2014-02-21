@@ -13,6 +13,7 @@
 		var options = $.extend({
             min: 0,
             max: 0,
+            className: "default",
 			snap: 0,
 			value: 0,
 			turn: function(){}
@@ -35,6 +36,8 @@
 				rotation = 0,
 				lastDeg = 0,
 				doc = $(document);
+
+            knob.addClass(options.className);
 			
 			if(options.value > 0 && options.value <= 359){
 				rotation = lastDeg = currentDeg = options.value;

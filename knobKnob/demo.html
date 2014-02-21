@@ -14,17 +14,38 @@
     <link rel="stylesheet" href="./knobKnob-style.css" media="all">
 </head>
 <body>
-    <div id="elem"></div>
+    <div id="elem1"></div>
+    <br/>
+    <div id="elem2"></div>
+    <br/>
+    <div id="elem3"></div>
 <script>
-    $("#elem").knobKnob({
+    $("#elem1").knobKnob({
         snap: 0,
         value: 0,
         turn: function(ratio){
             console.log(ratio);
         }
-    })
+    });
+    $("#elem2").knobKnob({
+        snap: 0,
+        value: 0,
+        className: 'arrow',
+        turn: function(ratio){
+            console.log(ratio);
+        }
+    });
+    $("#elem3").knobKnob({
+        snap: 0,
+        value: 0,
+        className: 'dot',
+        turn: function (ratio) {
+            console.log(ratio);
+        }
+    });
 </script>
 
+    <br/><br/><br/>
 <div class="cxq-knobKnob">
     <div class="cxq-knobKnob-rotate">
         <div class="cxq-knobKnob-rotate-circle">

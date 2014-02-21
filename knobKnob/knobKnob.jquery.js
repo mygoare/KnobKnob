@@ -11,15 +11,17 @@
 	$.fn.knobKnob = function(props){
 	
 		var options = $.extend({
+            min: 0,
+            max: 0,
 			snap: 0,
 			value: 0,
 			turn: function(){}
 		}, props || {});
 	
 		var tpl = '<div class="knob">\
-				<div class="top"></div>\
-				<div class="base"></div>\
-			</div>';
+				       <div class="top"></div>\
+				       <div class="base"></div>\
+			       </div>';
 	
 		return this.each(function(){
 			

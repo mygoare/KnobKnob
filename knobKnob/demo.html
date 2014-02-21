@@ -9,18 +9,34 @@
     <script src="./knobKnob.jquery.js"></script>
     <script src="./transform.js"></script>
 
+    <link rel="stylesheet" href="http://cdn.staticfile.org/normalize/3.0.0/normalize.min.css" media="all">
     <link rel="stylesheet" href="./knobKnob.css"/>
+    <link rel="stylesheet" href="./knobKnob-style.css" media="all">
 </head>
 <body>
     <div id="elem"></div>
 <script>
     $("#elem").knobKnob({
-        snap: 10,
-        value: 100,
+        snap: 0,
+        value: 0,
         turn: function(ratio){
             console.log(ratio);
         }
     })
 </script>
+
+<div class="cxq-knobKnob">
+    <div class="cxq-knobKnob-rotate">
+        <div class="cxq-knobKnob-rotate-circle">
+            <div class="cxq-knobKnob-rotate-outer">
+                <div class="cxq-knobKnob-rotate-inner"></div>
+                <div class="cxq-knobKnob-rotate-pointer"></div>
+            </div>
+        </div>
+        <div class="cxq-knobKnob-rotate-arrow-wrapper">
+            <div class="cxq-knobKnob-rotate-arrow-color"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

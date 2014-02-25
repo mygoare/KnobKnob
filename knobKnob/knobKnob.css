@@ -101,9 +101,9 @@
     height: 110px;
     background: url('knobKnob-arrow-s-rotate.png') no-repeat center;
     top: -5px;
-    -ms-filter: drop-shadow(0 0 3px #ccc);
-    -webkit-filter: drop-shadow(0 0 3px #ccc);
-    filter: drop-shadow(0 0 3px #ccc);
+    -ms-filter: drop-shadow(0 0 2px #ccc);
+    -webkit-filter: drop-shadow(0 0 2px #ccc);
+    filter: drop-shadow(0 0 2px #ccc);
 }
 
 .arrow .base{

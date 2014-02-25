@@ -8,17 +8,19 @@
 
 (function($){
 	
-	$.fn.knobKnob = function(props){
+	$.fn.knobKnob = function(props, settings){
+
+        if (typeof props == 'object')
+        {
+            settings = props;
+        }
+        else if (typeof props == 'string')
+        {
+
+        }
 	
-		var options = $.extend({
-            min: 0,
-            max: 0,
-            className: "default",
-			snap: 0,
-			value: 0,
-			turn: function(){}
-		}, props || {});
-	
+		var options = $.extend({}, $.fn.knobKnob.defaultSettings, settings || {});
+
 		var tpl = '<div class="knob">\
 				       <div class="top"></div>\
 				       <div class="base"></div>\
@@ -121,5 +123,14 @@
 			});
 		});
 	};
+
+    $.fn.knobKnob.defaultSettings = {
+        min: 0,
+        max: 0,
+        className: "default",
+        snap: 0,
+        value: 0,
+        turn: null
+    };
 	
 })(jQuery);

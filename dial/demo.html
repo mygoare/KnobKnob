@@ -22,14 +22,14 @@
     <br/>
     <div id="elem"></div>
 <script>
-    $("#elem1").knobKnob({
+    $("#elem1").dial({
         snap: 0,
         value: 0,
         turn: function(ratio){
             console.log(ratio);
         }
     });
-    $("#elem2").knobKnob({
+    $("#elem2").dial({
         snap: 0,
         value: 0,
         className: 'arrow',
@@ -37,7 +37,7 @@
             console.log(ratio);
         }
     });
-    $("#elem3").knobKnob({
+    $("#elem3").dial({
         snap: 0,
         value: 0,
         className: 'dot',

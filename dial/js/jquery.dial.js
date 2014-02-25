@@ -1,14 +1,27 @@
 /**
- * @name		jQuery KnobKnob plugin
+ * @name		jQuery Dial plugin
  * @author		Martin Angelov
  * @version 	1.0
  * @url			http://tutorialzine.com/2011/11/pretty-switches-css3-jquery/
  * @license		MIT License
  */
 
+/*
+
+    Modified by Mesheven, repo url: https://github.com/mygoare/KnobKnob
+
+    Optimize the plugin based on: http://www.websanova.com/blog/jquery/10-coding-tips-to-write-superior-jquery-plugins#.UwsRSUKSxgs
+
+    Some updates:
+        1.  Make the plugin with OOP mode
+        2.  Add two more themes
+        3.  add `rotate` method to change the rotate value dynamic
+
+ */
+
 (function($){
 
-    function KnobKnob(props, settings)
+    function Dial(props, settings)
     {
         this.knob = null;
         this.knobTop = null;
@@ -23,10 +36,10 @@
             settings = props;
         }
 
-        this.options = $.extend({}, $.fn.knobKnob.defaultSettings, settings || {});
+        this.options = $.extend({}, $.fn.dial.defaultSettings, settings || {});
     }
 
-    KnobKnob.prototype =
+    Dial.prototype =
     {
         generate: function(el)
         {
@@ -134,24 +147,24 @@
         }
     };
 	
-	$.fn.knobKnob = function(props, settings)
+	$.fn.dial = function(props, settings)
     {
 		return this.each(function()
         {
-            var knobKnob = new KnobKnob(props, settings);
+            var dial = new Dial(props, settings);
 
             if (!this.el)
             {
                 this.el = $(this);
-                knobKnob.generate(this.el);
-                knobKnob.bind();
+                dial.generate(this.el);
+                dial.bind();
 
-                this.el.data('knob', knobKnob);
+                this.el.data('knob', dial);
             }
 		});
 	};
 
-    $.fn.knobKnob.defaultSettings =
+    $.fn.dial.defaultSettings =
     {
         min: 0,
         max: 0,

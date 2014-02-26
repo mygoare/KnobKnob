@@ -4,13 +4,13 @@
 
 /*basic css style*/
 
-.knob{
+.dial{
 	width:83px;
 	height:83px;
 	position:relative;
 }
 
-.knob .top{
+.dial .top{
 	position:absolute;
 	top:0;
 	left:0;
@@ -18,17 +18,17 @@
 	cursor:default !important;
 }
 
-.knob .base{
+.dial .base{
 	position:absolute;
 	top:0;
 	left:0;
 	z-index:1;
 }
 
-.knob .top:after{
+.dial .top:after{
 }
 
-.knob [draggable] {
+.dial [draggable] {
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;

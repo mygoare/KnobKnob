@@ -23,8 +23,8 @@
 
     function Dial(props, settings)
     {
-        this.knob = null;
-        this.knobTop = null;
+        this.dial = null;
+        this.dialTop = null;
         this.startDeg = -1;
         this.currentDeg = 0;
         this.rotation = 0;
@@ -43,7 +43,7 @@
     {
         generate: function(el)
         {
-            var tpl = '<div class="knob">\
+            var tpl = '<div class="dial">\
                            <div class="top"></div>\
                            <div class="base"></div>\
                        </div>';
@@ -51,9 +51,9 @@
 
             el.append(tpl);
 
-            this.knob = $('.knob', el);
-            this.knobTop = this.knob.find('.top');
-            this.knob.addClass(this.options.className);
+            this.dial = $('.dial', el);
+            this.dialTop = this.dial.find('.top');
+            this.dial.addClass(this.options.className);
 
             this.rotate(this.options.value);
         },
@@ -61,27 +61,27 @@
         {
             if(v > 0 && v <= 359){
                 this.rotation = this.lastDeg = this.currentDeg = v;
-                this.knobTop.css('transform','rotate('+(v)+'deg)');
+                this.dialTop.css('transform','rotate('+(v)+'deg)');
                 this.options.turn(v/359);
             }
         },
         bind: function()
         {
             var _this = this;
-            this.knob.on('mousedown touchstart', function(e)
+            this.dial.on('mousedown touchstart', function(e)
             {
                 e.preventDefault();
 
-                var offset = _this.knob.offset();
+                var offset = _this.dial.offset();
                 var center = {
-                    y : offset.top + _this.knob.height()/2,
-                    x: offset.left + _this.knob.width()/2
+                    y : offset.top + _this.dial.height()/2,
+                    x: offset.left + _this.dial.width()/2
                 };
 
                 var a, b, deg, tmp,
                     rad2deg = 180/Math.PI;
 
-                _this.knob.on('mousemove.rem touchmove.rem',function(e)
+                _this.dial.on('mousemove.rem touchmove.rem',function(e)
                 {
 
                     e = (e.originalEvent.touches) ? e.originalEvent.touches[0] : e;
@@ -127,13 +127,13 @@
                     _this.currentDeg = tmp;
                     _this.lastDeg = tmp;
 
-                    _this.knobTop.css('transform','rotate('+(_this.currentDeg)+'deg)');
+                    _this.dialTop.css('transform','rotate('+(_this.currentDeg)+'deg)');
                     _this.options.turn(_this.currentDeg/360);
                 });
 
                 _this.doc.on('mouseup.rem  touchend.rem',function()
                 {
-                    _this.knob.off('.rem');
+                    _this.dial.off('.rem');
                     _this.doc.off('.rem');
 
                     // Saving the current rotation
@@ -159,7 +159,7 @@
                 dial.generate(this.el);
                 dial.bind();
 
-                this.el.data('knob', dial);
+                this.el.data('dial', dial);
             }
 		});
 	};

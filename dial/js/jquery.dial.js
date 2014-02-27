@@ -127,7 +127,7 @@
                     _this.lastDeg = tmp;
 
                     _this.dialTop.css('transform','rotate('+(_this.currentDeg)+'deg)');
-                    _this.options.turn(_this.currentDeg/360);
+                    _this.options.turn(_this.currentDeg);
                 });
 
                 _this.doc.on('mouseup.rem  touchend.rem',function()
@@ -140,6 +140,8 @@
 
                     // Marking the starting degree as invalid
                     _this.startDeg = -1;
+
+                    _this.options.change(_this.currentDeg);
                 });
 
             });
@@ -170,7 +172,8 @@
         className: "default",
         snap: 0,
         value: 0,
-        turn: function(){}
+        turn: function(){},
+        change: function(){}
     };
 	
 })(jQuery);

@@ -62,7 +62,6 @@
             if(v > 0 && v <= 359){
                 this.rotation = this.lastDeg = this.currentDeg = v;
                 this.dialTop.css('transform','rotate('+(v)+'deg)');
-                this.options.turn(v/359);
             }
         },
         bind: function()

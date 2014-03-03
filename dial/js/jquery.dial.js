@@ -59,7 +59,8 @@
         },
         rotate: function(v)
         {
-            if(v > 0 && v <= 359){
+            if(v > 0 && v <= 359)
+            {
                 this.rotation = this.lastDeg = this.currentDeg = v;
                 this.dialTop.css('transform','rotate('+(v)+'deg)');
             }
@@ -167,13 +168,13 @@
 
     $.fn.dial.defaultSettings =
     {
-        min: 0,
-        max: 0,
+        min      : 0,
+        max      : 0,
         className: "default",
-        snap: 0,
-        value: 0,
-        turn: function(){},
-        change: function(){}
+        snap     : 0,
+        value    : 0,
+        turn     : function (currentDeg) {},
+        change   : function (currentDeg) {}
     };
 	
 })(jQuery);

@@ -55,14 +55,20 @@
             this.dialTop = this.dial.find('.top');
             this.dial.addClass(this.options.className);
 
+            this.init();
+
+            this.rotation = this.lastDeg = this.currentDeg = this.options.value;
             this.rotate(this.options.value);
         },
-        rotate: function(v)
+        init: function()
         {
-            if(v > 0 && v <= 359)
+
+        },
+        rotate: function(d)
+        {
+            if( d >= 0 && d <= 360 )
             {
-                this.rotation = this.lastDeg = this.currentDeg = v;
-                this.dialTop.css('transform','rotate('+(v)+'deg)');
+                this.dialTop.css('transform','rotate('+(d)+'deg)');
             }
         },
         bind: function()
@@ -127,8 +133,8 @@
                     _this.currentDeg = tmp;
                     _this.lastDeg = tmp;
 
-                    _this.dialTop.css('transform','rotate('+(_this.currentDeg)+'deg)');
-                    _this.options.turn(_this.currentDeg);
+                    _this.rotate(_this.currentDeg);
+                    _this.options.turn(_this.currentDeg / _this.options.angleArc * (_this.options.max - _this.options.min) + _this.options.min);
                 });
 
                 _this.doc.on('mouseup.rem  touchend.rem',function()
@@ -168,13 +174,17 @@
 
     $.fn.dial.defaultSettings =
     {
-        min      : 0,
-        max      : 0,
-        className: "default",
-        snap     : 0,
-        value    : 0,
-        turn     : function (currentDeg) {},
-        change   : function (currentDeg) {}
+        min        : 30,
+        max        : 120,
+        angleOffset: 0,
+        angleArc   : 360,
+        className  : "default",
+        snap       : 0,
+        value      : 0,
+        turn       : function (currentDeg) {
+        },
+        change     : function (currentDeg) {
+        }
     };
 	
 })(jQuery);

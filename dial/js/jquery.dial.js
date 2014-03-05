@@ -8,16 +8,16 @@
 
 /*
 
-    Modified by Mesheven, repo url: https://github.com/mygoare/KnobKnob
+ Modified by Mesheven, repo url: https://github.com/mygoare/KnobKnob
 
-    Optimize the plugin based on: http://www.websanova.com/blog/jquery/10-coding-tips-to-write-superior-jquery-plugins#.UwsRSUKSxgs
+ Optimize the plugin based on: http://www.websanova.com/blog/jquery/10-coding-tips-to-write-superior-jquery-plugins#.UwsRSUKSxgs
 
-    Some updates:
-        1.  Make the plugin with OOP mode
-        2.  Add two more themes
-        3.  add `rotate` method to change the rotate value dynamic
+ Some updates:
+ 1.  Make the plugin with OOP mode
+ 2.  Add two more themes
+ 3.  add `rotate` method to change the rotate value dynamic
 
-        4.  add angleOffset, angleArc, min, max parameters
+ 4.  add angleOffset, angleArc, min, max parameters
 
  */
 

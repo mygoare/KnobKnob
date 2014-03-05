@@ -115,8 +115,12 @@
 
                     // Calculating the current rotation
                     tmp = Math.floor((deg-_this.startDeg) + _this.rotation);
-                    // console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
+//                    console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
 
+                    if (Math.abs(deg - _this.startDeg) > 180)
+                    {
+                        return false;
+                    }
                     if (deg < _this.options.angleOffset)
                     {
                         deg = tmp = _this.options.angleOffset;
@@ -198,8 +202,8 @@
     {
         min        : 30,
         max        : 120,
-        angleOffset: 60,
-        angleArc   : 180,
+        angleOffset: 10,
+        angleArc   : 220,
         className  : "default",
         snap       : 0,
         value      : 0,

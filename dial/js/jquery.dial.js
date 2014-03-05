@@ -185,7 +185,7 @@
     $.fn.dial.defaultSettings =
     {
         min        : 0,
-        max        : 10,
+        max        : 100,
         angleOffset: 0,
         angleArc   : 360,
         className  : "default",

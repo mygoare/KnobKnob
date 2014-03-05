@@ -29,6 +29,7 @@
         this.currentDeg = 0;
         this.rotation = 0;
         this.lastDeg = 0;
+        this.v = 0;
         this.doc = $(document);
 
         if (typeof props == 'object')
@@ -46,7 +47,9 @@
             var tpl = '<div class="dial">\
                            <div class="top"></div>\
                            <div class="base"></div>\
-                       </div>';
+                       </div>',
+                d   = 0,
+                v   = this.options.value;
 
 
             el.append(tpl);
@@ -55,18 +58,21 @@
             this.dialTop = this.dial.find('.top');
             this.dial.addClass(this.options.className);
 
-            this.init();
 
-            this.rotation = this.lastDeg = this.currentDeg = this.options.value;
-            this.rotate(this.options.value);
+
+
+            d = ( v - this.options.min ) / (this.options.max - this.options.min) * this.options.angleArc + this.options.angleOffset;
+            this.init(v);
+//            this.rotate(d);
         },
-        init: function()
+        init: function(v)
         {
-
+            this.rotation = this.lastDeg = this.currentDeg = this.options.angleOffset;
+            this.rotate(this.options.angleOffset);
         },
         rotate: function(d)
         {
-            if( d >= 0 && d <= 360 )
+            if( d >= 0 && d <= this.options.angleArc + this.options.angleOffset )
             {
                 this.dialTop.css('transform','rotate('+(d)+'deg)');
             }
@@ -94,7 +100,7 @@
 
                     a = center.y - e.pageY;
                     b = center.x - e.pageX;
-                    deg = Math.atan2(a,b)*rad2deg;
+                    deg = Math.atan2(a,b)*rad2deg;  // -180 ~ 180 degree
 
                     // we have to make sure that negative
                     // angles are turned into positive:
@@ -109,32 +115,48 @@
 
                     // Calculating the current rotation
                     tmp = Math.floor((deg-_this.startDeg) + _this.rotation);
+                    // console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
 
-                    // Making sure the current rotation
-                    // stays between 0 and 359
-                    if(tmp < 0){
-                        tmp = 360 + tmp;
+                    if (deg < _this.options.angleOffset)
+                    {
+                        deg = tmp = _this.options.angleOffset;
+                        _this.rotate(deg);
                     }
-                    else if(tmp > 359){
-                        tmp = tmp % 360;
-                    }
-
-                    // Snapping in the off position:
-                    if(_this.options.snap && tmp < _this.options.snap){
-                        tmp = 0;
+                    if (deg > _this.options.angleOffset + _this.options.angleArc)
+                    {
+                        deg = tmp = _this.options.angleArc + _this.options.angleOffset;
+                        _this.rotate(deg);
                     }
 
-                    // This would suggest we are at an end position;
-                    // we need to block further rotation.
-                    if(Math.abs(tmp - _this.lastDeg) > 180){
-                        return false;
-                    }
+//                    // Making sure the current rotation
+//                    // stays between 0 and 359
+//                    if(tmp < _this.options.angleOffset){
+//                        tmp = _this.options.angleArc + tmp;
+//                    }
+//                    else if(tmp > _this.options.angleArc + _this.options.angleOffset){
+//                        tmp = tmp % _this.options.angleArc;
+//                    }
+//
+//                    // Snapping in the off position:
+//                    if(_this.options.snap && tmp < _this.options.snap){
+//                        tmp = 0;
+//                    }
+//
+//                    // This would suggest we are at an end position;
+//                    // we need to block further rotation.
+//                    if(Math.abs(tmp - _this.lastDeg) > 180){
+//                        return false;
+//                    }
 
-                    _this.currentDeg = tmp;
+                    _this.currentDeg = tmp; // _this.currentDeg 作为传递纽带 给157行 _this.rotation
                     _this.lastDeg = tmp;
 
+                    // output degree
                     _this.rotate(_this.currentDeg);
-                    _this.options.turn(_this.currentDeg / _this.options.angleArc * (_this.options.max - _this.options.min) + _this.options.min);
+
+                    // output value
+                    _this.v = (_this.currentDeg - _this.options.angleOffset) / _this.options.angleArc * (_this.options.max - _this.options.min) + _this.options.min;
+                    _this.options.turn(_this.v);
                 });
 
                 _this.doc.on('mouseup.rem  touchend.rem',function()
@@ -148,7 +170,7 @@
                     // Marking the starting degree as invalid
                     _this.startDeg = -1;
 
-                    _this.options.change(_this.currentDeg);
+                    _this.options.change(_this.v);
                 });
 
             });
@@ -176,8 +198,8 @@
     {
         min        : 30,
         max        : 120,
-        angleOffset: 0,
-        angleArc   : 360,
+        angleOffset: 60,
+        angleArc   : 180,
         className  : "default",
         snap       : 0,
         value      : 0,

@@ -32,7 +32,11 @@
     $("#elem2").dial({
         className: 'arrow',
         turn: function(ratio){
-            console.log(ratio);
+            console.log("Value => "+ratio);
+        },
+        change: function(v)
+        {
+//            alert(v);
         }
     });
     $("#elem3").dial({

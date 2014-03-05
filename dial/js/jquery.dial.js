@@ -47,9 +47,7 @@
             var tpl = '<div class="dial">\
                            <div class="top"></div>\
                            <div class="base"></div>\
-                       </div>',
-                d   = 0,
-                v   = this.options.value;
+                       </div>';
 
 
             el.append(tpl);
@@ -60,15 +58,16 @@
 
 
 
-
-            d = ( v - this.options.min ) / (this.options.max - this.options.min) * this.options.angleArc + this.options.angleOffset;
-            this.init(v);
-//            this.rotate(d);
+            this.init();
         },
-        init: function(v)
+        init: function()
         {
-            this.rotation = this.lastDeg = this.currentDeg = this.options.angleOffset;
-            this.rotate(this.options.angleOffset);
+//            通过v计算出d
+            var v = this.v = this.options.value;
+            var d = (v - this.options.min) / (this.options.max - this.options.min) * this.options.angleArc + this.options.angleOffset;
+
+            this.rotation = this.lastDeg = this.currentDeg = d;
+            this.rotate(d);
         },
         rotate: function(d)
         {
@@ -115,12 +114,12 @@
 
                     // Calculating the current rotation
                     tmp = Math.floor((deg-_this.startDeg) + _this.rotation);
-//                    console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
+                    console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
 
-                    if (Math.abs(deg - _this.startDeg) > 180)
-                    {
-                        return false;
-                    }
+//                    if (Math.abs(deg - _this.startDeg) > 180)
+//                    {
+//                        return false;
+//                    }
                     if (deg < _this.options.angleOffset)
                     {
                         deg = tmp = _this.options.angleOffset;
@@ -200,10 +199,10 @@
 
     $.fn.dial.defaultSettings =
     {
-        min        : 30,
-        max        : 120,
-        angleOffset: 10,
-        angleArc   : 220,
+        min        : 0,
+        max        : 100,
+        angleOffset: 0,
+        angleArc   : 360,
         className  : "default",
         snap       : 0,
         value      : 0,

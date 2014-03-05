@@ -49,20 +49,16 @@
                            <div class="base"></div>\
                        </div>';
 
-
             el.append(tpl);
-
             this.dial = $('.dial', el);
             this.dialTop = this.dial.find('.top');
             this.dial.addClass(this.options.className);
-
-
 
             this.init();
         },
         init: function()
         {
-//            通过v计算出d
+            // v calculate out d
             var v = this.v = this.options.value;
             var d = (v - this.options.min) / (this.options.max - this.options.min) * this.options.angleArc + this.options.angleOffset;
 
@@ -74,6 +70,11 @@
             if( d >= 0 && d <= this.options.angleArc + this.options.angleOffset )
             {
                 this.dialTop.css('transform','rotate('+(d)+'deg)');
+            }
+            else
+            {
+                console.error("d is not a valid degree number. Maybe the wrong default value you have set!");
+                return false;
             }
         },
         bind: function()
@@ -114,44 +115,27 @@
 
                     // Calculating the current rotation
                     tmp = Math.floor((deg-_this.startDeg) + _this.rotation);
-                    console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
+                    // use for debug
+                    // console.warn("当前"+deg, "上次起始"+_this.startDeg, "现在tmp值"+tmp, "上次tmp值"+_this.rotation);
 
-//                    if (Math.abs(deg - _this.startDeg) > 180)
-//                    {
-//                        return false;
-//                    }
+                    // block further rotation
+                    if (Math.abs(tmp - _this.startDeg) > 180)
+                    {
+                        return false;
+                    }
+
                     if (deg < _this.options.angleOffset)
                     {
                         deg = tmp = _this.options.angleOffset;
                         _this.rotate(deg);
                     }
-                    if (deg > _this.options.angleOffset + _this.options.angleArc)
+                    else if (deg > _this.options.angleOffset + _this.options.angleArc)
                     {
                         deg = tmp = _this.options.angleArc + _this.options.angleOffset;
                         _this.rotate(deg);
                     }
 
-//                    // Making sure the current rotation
-//                    // stays between 0 and 359
-//                    if(tmp < _this.options.angleOffset){
-//                        tmp = _this.options.angleArc + tmp;
-//                    }
-//                    else if(tmp > _this.options.angleArc + _this.options.angleOffset){
-//                        tmp = tmp % _this.options.angleArc;
-//                    }
-//
-//                    // Snapping in the off position:
-//                    if(_this.options.snap && tmp < _this.options.snap){
-//                        tmp = 0;
-//                    }
-//
-//                    // This would suggest we are at an end position;
-//                    // we need to block further rotation.
-//                    if(Math.abs(tmp - _this.lastDeg) > 180){
-//                        return false;
-//                    }
-
-                    _this.currentDeg = tmp; // _this.currentDeg 作为传递纽带 给157行 _this.rotation
+                    _this.currentDeg = tmp; // _this.currentDeg 作为传递纽带 给157行的 _this.rotation
                     _this.lastDeg = tmp;
 
                     // output degree
@@ -159,6 +143,7 @@
 
                     // output value
                     _this.v = (_this.currentDeg - _this.options.angleOffset) / _this.options.angleArc * (_this.options.max - _this.options.min) + _this.options.min;
+                    _this.v = Math.round(_this.v);
                     _this.options.turn(_this.v);
                 });
 
@@ -200,11 +185,10 @@
     $.fn.dial.defaultSettings =
     {
         min        : 0,
-        max        : 100,
+        max        : 10,
         angleOffset: 0,
         angleArc   : 360,
         className  : "default",
-        snap       : 0,
         value      : 0,
         turn       : function (currentDeg) {
         },

@@ -32,13 +32,14 @@
     $("#elem2").dial({
         angleOffset: 30,
         angleArc: 120,
+        value: 4,
         className: 'arrow',
         turn: function(ratio){
             console.log("Value => "+ratio);
         },
         change: function(v)
         {
-//            alert(v);
+            console.warn(v);
         }
     });
     $("#elem3").dial({

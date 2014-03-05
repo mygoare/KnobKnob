@@ -17,6 +17,8 @@
         2.  Add two more themes
         3.  add `rotate` method to change the rotate value dynamic
 
+        4.  add angleOffset, angleArc, min, max parameters
+
  */
 
 (function($){

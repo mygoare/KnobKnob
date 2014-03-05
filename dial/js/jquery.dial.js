@@ -56,12 +56,12 @@
             this.dialTop = this.dial.find('.top');
             this.dial.addClass(this.options.className);
 
-            this.init();
+            this.init(this.options.value);
         },
-        init: function()
+        init: function(v)
         {
             // v calculate out d
-            var v = this.v = this.options.value;
+            this.v = v;
             var d = (v - this.options.min) / (this.options.max - this.options.min) * this.options.angleArc + this.options.angleOffset;
 
             this.rotation = this.lastDeg = this.currentDeg = d;
@@ -75,7 +75,7 @@
             }
             else
             {
-                console.error("d is not a valid degree number. Maybe the wrong default value you have set!");
+                console.error(d, "d is not a valid degree number. Maybe the wrong default value you have set!");
                 return false;
             }
         },
@@ -166,10 +166,10 @@
             });
         }
     };
-	
-	$.fn.dial = function(props, settings)
+
+    $.fn.dial = function(props, settings)
     {
-		return this.each(function()
+        return this.each(function()
         {
             var dial = new Dial(props, settings);
 
@@ -181,8 +181,8 @@
 
                 this.el.data('dial', dial);
             }
-		});
-	};
+        });
+    };
 
     $.fn.dial.defaultSettings =
     {
@@ -197,5 +197,5 @@
         change     : function (currentDeg) {
         }
     };
-	
+
 })(jQuery);

@@ -60,11 +60,15 @@
         },
         init: function(v)
         {
+            if (typeof v !== 'number')
+            {
+                return false;
+            }
             // v calculate out d
             this.v = v;
             var d = (v - this.options.min) / (this.options.max - this.options.min) * this.options.angleArc + this.options.angleOffset;
 
-            this.rotation = this.lastDeg = this.currentDeg = d;
+            this.rotation = this.lastDeg = this.currentDeg = d; // init need
             this.rotate(d);
         },
         rotate: function(d)
@@ -76,7 +80,6 @@
             else
             {
                 console.error(d, "d is not a valid degree number. Maybe the wrong default value you have set!");
-                return false;
             }
         },
         bind: function()
